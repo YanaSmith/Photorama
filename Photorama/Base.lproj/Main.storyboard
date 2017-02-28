@@ -21,23 +21,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lgv-Uv-zre">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7WV-Om-r2d">
+                                <rect key="frame" x="152" y="319" width="71" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="rC9-qz-YWG"/>
+                                    <constraint firstAttribute="height" constant="30" id="rY8-jA-KOb"/>
+                                </constraints>
+                                <state key="normal" title="Get List"/>
+                                <connections>
+                                    <action selector="getList:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pcz-1Q-WTL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNa-Gd-jKb">
+                                <rect key="frame" x="152" y="389" width="71" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="4sF-n8-m9j"/>
+                                    <constraint firstAttribute="height" constant="30" id="xk8-mT-QYw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Get Recent"/>
+                                <connections>
+                                    <action selector="getRecent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FxF-9Z-U6I"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgv-Uv-zre">
+                                <rect key="frame" x="-59" y="64" width="375" height="603"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Lgv-Uv-zre" secondAttribute="bottom" id="R8E-2Z-T0d"/>
-                            <constraint firstAttribute="trailing" secondItem="Lgv-Uv-zre" secondAttribute="trailing" id="aUd-yE-9FN"/>
-                            <constraint firstItem="Lgv-Uv-zre" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="j68-c0-fgT"/>
-                            <constraint firstItem="Lgv-Uv-zre" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="s8U-8D-Aup"/>
+                            <constraint firstItem="7WV-Om-r2d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7wV-gm-9ZZ"/>
+                            <constraint firstItem="KNa-Gd-jKb" firstAttribute="top" secondItem="7WV-Om-r2d" secondAttribute="bottom" constant="40" id="CKH-Ct-0r8"/>
+                            <constraint firstAttribute="trailing" secondItem="Lgv-Uv-zre" secondAttribute="trailing" id="HkT-KR-HuB"/>
+                            <constraint firstItem="7WV-Om-r2d" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="WTP-cd-FXB"/>
+                            <constraint firstItem="KNa-Gd-jKb" firstAttribute="leading" secondItem="7WV-Om-r2d" secondAttribute="leading" id="dGj-wy-PsM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Lgv-Uv-zre" secondAttribute="bottom" id="e3b-Af-VEV"/>
+                            <constraint firstItem="Lgv-Uv-zre" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="kd1-nt-rRK"/>
+                            <constraint firstItem="Lgv-Uv-zre" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wGa-uP-vN6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photorama" id="0AI-FH-qvY"/>
+                    <connections>
+                        <outlet property="getListButton" destination="7WV-Om-r2d" id="cyF-Sg-ba3"/>
+                        <outlet property="getRecentButton" destination="KNa-Gd-jKb" id="yx1-iq-vwq"/>
+                        <outlet property="imageView" destination="Lgv-Uv-zre" id="78v-SV-qno"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1016.8" y="-645.42728635682158"/>
+            <point key="canvasLocation" x="853.60000000000002" y="-645.42728635682158"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Veb-mq-AhL">
@@ -50,7 +82,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="H0h-Rz-VBI"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="OUj-eO-M83"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bzE-gl-kdS" userLabel="First Responder" sceneMemberID="firstResponder"/>

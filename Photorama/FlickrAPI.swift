@@ -11,13 +11,14 @@ import Foundation
 enum Method: String {
    
     case interestingPhotos = "flickr.interestingness.getList"
+    case recentPhotos = "flickr.photos.getRecent"
+    
 }
 
 enum FlickrError: Error {
     
     case invalidJSONData
 }
-
 
 
 struct FlickrAPI {
@@ -32,7 +33,7 @@ struct FlickrAPI {
     }()
     
 
-
+ // 1.Func that can ccreate URL from "method", querry items
     private static func flickrURL(method: Method, parameters: [String: String]?) -> URL {
         
         var components = URLComponents(string: baseURLString)!
@@ -52,15 +53,25 @@ struct FlickrAPI {
           }
         }
         components.queryItems = queryItems
+        print("URL: \(components.url) "
+        )
         return components.url!
         
     }
     
-  static var interestingPhotosURL: URL {
-        return flickrURL(method: .interestingPhotos, parameters: ["extras": "url_h,date_taken"])
-        
-    }
+    // 2. Call of 1. func flickrURl
+        static var interestingPhotosURL: URL {
+            
+            let x = UserDefaults.standard.bool(forKey: "getRecent")
+            if x {
+            return flickrURL(method: .recentPhotos, parameters: ["extras": "url_h,date_taken"])
+                
+            } else {
+             return flickrURL(method: .interestingPhotos, parameters: ["extras": "url_h,date_taken"])
+            }
+        }
     
+    // Steo4: Serialized json from step3 ana 3a, creating array of fotos
     static func photos(fromJson data: Data) -> PhotoResult {
         
         do {
@@ -103,6 +114,7 @@ struct FlickrAPI {
         }
     }
     
+    //Step5: Get the data of a single photo from the arrey of pphotos in 4. gets the remote url of the photo
         private static func photo(fromJSON json: [String : Any]) -> Photo? {
             
             guard
@@ -113,10 +125,10 @@ struct FlickrAPI {
                 let url = URL(string: photoURLString),
                 let dateTaken = dateFormatter.date(from: dateString) else {
                 
-            
-                    return nil
+                    print("Couldn't parse Photo" )
+                    return nil 
             }
-                
+              print(" RemoteURL is \(url)")
             return Photo(title: title, photoId: photoID, remoteURL: url, dateTaken: dateTaken)
             
         }
