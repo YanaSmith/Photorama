@@ -26,6 +26,8 @@ enum PhotoResult {
 
 class PhotoStore {
     
+    let imageStore = ImageStore()
+    
    private let session: URLSession = {
         //let config = URLSessionConfiguration.default
         return URLSession(configuration: URLSessionConfiguration.default)
@@ -58,21 +60,35 @@ class PhotoStore {
         task.resume()
     }
     
-    //Step6: makes a request with th url of got in 5
+    //Step6: makes a request with th url of got in 5 and 5a
     func fetchImage(for photo: Photo, completion: @escaping (ImageResult) -> Void) {
+        //Cache images
+        
+        let photoKey = photo.photoId
+        if let image = imageStore.image(forKey: photoKey) {
+            OperationQueue.main.addOperation{
+                completion(.success(image))
+            }
+              return
+        }
+        
         let photoURL = photo.remoteURL
         let request = URLRequest(url: photoURL)
         let task = session.dataTask(with: request) { (data, resonse, error) in
          
-            guard  let responseHTTP = resonse as? HTTPURLResponse else {
-                return
-            }
-            
-            let header = responseHTTP.allHeaderFields
-            let stat = responseHTTP.statusCode
+//            guard  let responseHTTP = resonse as? HTTPURLResponse else {
+//                return
+//            }
+//            
+//            let header = responseHTTP.allHeaderFields
+//            let stat = responseHTTP.statusCode
            
             
         let result = self.processImageRequest(data: data, error: error)
+            
+            if case let .success(image) = result {
+                self.imageStore.setImage(image: image, forKey: photoKey)
+            }
            
             OperationQueue.main.addOperation {
                 completion(result)
